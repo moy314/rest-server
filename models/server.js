@@ -7,13 +7,59 @@ class server{
     constructor(){
 
         this.app = express();
-        this.routes();
         this.port = process.env.PORT;
+        //middlewares
+        this.middlewares();
+        //rutas
+        this.routes();
 
     }
         routes(){
-            this.app.get('/', function (req, res) {
-            res.send('Hello World');
+            this.app.get('/api', function (req, res) {
+            res.json(
+                {
+                ok:true,
+                msg:"GET API"
+                }
+
+            );
+          })
+
+
+
+          this.app.put('/api', function (req, res) {
+            res.json(
+                {
+                ok:true,
+                msg:"PUT API"
+                
+                }
+
+            );
+          })
+
+
+          this.app.post('/api', function (req, res) {
+            res.json(
+                {
+                ok:true,
+                msg:"POST API"
+                
+                }
+
+            );
+          })
+
+
+          this.app.delete('/api', function (req, res) {
+            res.json(
+                {
+                ok:true,
+                msg:"DELETE API"
+                
+                }
+
+            );
           })
 
         }
@@ -28,6 +74,11 @@ class server{
 
         }
       
+
+        middlewares(){
+            //directorio publico
+            this.app.use(express.static('public'))
+        }
    
 
     }
