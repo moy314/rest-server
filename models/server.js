@@ -9,6 +9,7 @@ class server{
 
         this.app = express();
         this.port = process.env.PORT;
+        this.pathUsuarios = '/api/usuarios'
         //middlewares
         this.middlewares();
         //rutas
@@ -16,52 +17,10 @@ class server{
 
     }
         routes(){
-            this.app.get('/api', function (req, res) {
-            res.json(
-                {
-                ok:true,
-                msg:"GET API"
-                }
-
-            );
-          })
 
 
-
-          this.app.put('/api', function (req, res) {
-            res.json(
-                {
-                ok:true,
-                msg:"PUT API"
-                
-                }
-
-            );
-          })
-
-
-          this.app.post('/api', function (req, res) {
-            res.status(201).json(
-                {
-                ok:true,
-                msg:"POST API"
-                
-                }
-
-            );
-          })
-
-
-          this.app.delete('/api', function (req, res) {
-            res.json(
-                {
-                ok:true,
-                msg:"DELETE API"
-                
-                }
-
-            );
-          })
+            this.app.use(this.pathUsuarios,require('../routes/usuarios'));
+            
 
         }
 
@@ -78,8 +37,11 @@ class server{
 
         middlewares(){
             //directorio publico
-            this.app.use(express.static('public'));
+            this.app.use(express.static('public'));//para renderizar los archivos de la carpeta public
+            //CORS
             this.app.use(Cors());
+            //lectura y parseo del body
+            this.app.use(express.json());//js object notation
 
         }
    
