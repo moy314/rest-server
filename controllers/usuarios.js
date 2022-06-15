@@ -1,6 +1,7 @@
 const { Rsponse,request } = require('express');
 const bcrypt = require('bcryptjs');
 const Usuario = require('../models/usuario');
+const {validationResult} = require('express-validator');
 
 const usuariosGet =  (req, res = Response)  => {
 
@@ -35,6 +36,12 @@ const usuariosGet =  (req, res = Response)  => {
 
 
   const usuariosPost =  async(req, res = Response) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+
+      return res.status(400).json(errors);
+
+    }
 
             //NO CONFIAR EN LA PERSONA QUE HACE EL FRONTEND
             //aquí solo estamos desestructurando lo que nos interesa. No debemos recibir el campo google para que no pueda ser modificado
