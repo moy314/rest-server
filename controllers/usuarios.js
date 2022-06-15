@@ -1,4 +1,5 @@
 const { Rsponse } = require('express');
+const Usuario = require('../models/usuario');
 
 const usuariosGet =  (req, res = Response)  => {
 
@@ -32,14 +33,19 @@ const usuariosGet =  (req, res = Response)  => {
   }
 
 
-  const usuariosPost =  (req, res = Response) => {
+  const usuariosPost =  async(req, res = Response) => {
 
       const body = req.body;
+      const usuario = new Usuario(body);//creando nueva instancia del uduario
+      //con lo de arriba sólo se crea la instancia pero no se está guardando:
+      await usuario.save();
+
+
       res.status(201).json(
         {
         ok:true,
         msg:"POST API - controlador",
-        body
+        usuario
         
         }
 
