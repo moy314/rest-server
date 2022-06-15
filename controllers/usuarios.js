@@ -35,10 +35,14 @@ const usuariosGet =  (req, res = Response)  => {
 
   const usuariosPost =  async(req, res = Response) => {
 
-      const body = req.body;
-      const usuario = new Usuario(body);//creando nueva instancia del uduario
+            //NO CONFIAR EN LA PERSONA QUE HACE EL FRONTEND
+            //aquí solo estamos desestructurando lo que nos interesa. No debemos recibir el campo google para que no pueda ser modificado
+      const {nombre,correo,password,rol} = req.body;
+      const usuario = new Usuario({nombre,correo,password,rol});//creando nueva instancia del uduario
       //con lo de arriba sólo se crea la instancia pero no se está guardando:
       await usuario.save();
+
+
 
 
       res.status(201).json(
