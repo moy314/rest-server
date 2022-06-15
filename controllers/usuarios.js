@@ -1,4 +1,5 @@
-const { Rsponse } = require('express');
+const { Rsponse,request } = require('express');
+const bcrypt = require('bcryptjs');
 const Usuario = require('../models/usuario');
 
 const usuariosGet =  (req, res = Response)  => {
@@ -40,6 +41,20 @@ const usuariosGet =  (req, res = Response)  => {
       const {nombre,correo,password,rol} = req.body;
       const usuario = new Usuario({nombre,correo,password,rol});//creando nueva instancia del uduario
       //con lo de arriba sólo se crea la instancia pero no se está guardando:
+     
+
+      //verificar si el correo existe
+
+
+      //encriptar contraseña
+      const salt = bcrypt.genSaltSync();
+      usuario.password = bcrypt.hashSync(password,salt);
+
+     
+     
+     
+     
+     //guardar en base de datos
       await usuario.save();
 
 
