@@ -18,7 +18,10 @@ router.get('/', usuariosGet)
 
 
   router.post('/',// agregando validaciones de correo.
-  check('correo','el correo no es válido').isEmail()
+  check('nombre','el nombre no puede ser una cadena vacía').not().isEmpty(),//aqui se hace la validacion. estas cosas son middlewares
+  check('correo','el correo no es válido').isEmail(),
+  check('password','el password debe terner al menos 6 caracteres').isLength({min:6}),
+  check('rol',' no es un rol válido').isIn(['ADMIN_ROLE','USER_ROLE'])
   ,usuariosPost)
 
 
