@@ -1,7 +1,7 @@
 const { Rsponse,request } = require('express');
 const bcrypt = require('bcryptjs');
 const Usuario = require('../models/usuario');
-
+ 
 const usuariosGet =  (req, res = Response)  => {
 
     const {q,nombre = "no name",apekey} = req.query;
