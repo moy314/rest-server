@@ -1,7 +1,8 @@
-const { Router }        =  require('express');
-const { check }         = require('express-validator');
-const { validarCampos } = require('../middlewares/validar-campos');
-const { esRolValido }   = require('../helpers/db-validator');
+const { Router }                    =  require('express');
+const { check }                     = require('express-validator');
+const { validarCampos }             = require('../middlewares/validar-campos');
+const { esRolValido,emailExiste }   = require('../helpers/db-validator');
+
  
 
 
@@ -29,6 +30,7 @@ router.get('/', usuariosGet)
   // check('rol',' no es un rol válido').isIn(['ADMIN_ROLE','USER_ROLE']),
   check('rol').custom( esRolValido ),//verificacion personalizada. se agrega la cadena vacia por si el rol no se envia en el req, la cadena vacía choque con la validacion
                       //(rol) => esRolValido(rol)
+  check('correo').custom(emailExiste),                      
   validarCampos
 ],usuariosPost)
 

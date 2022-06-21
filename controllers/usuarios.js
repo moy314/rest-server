@@ -1,6 +1,9 @@
 const { Rsponse,request } = require('express');
 const bcrypt = require('bcryptjs');
 const Usuario = require('../models/usuario');
+// const emailExiste = require('')
+
+
  
 const usuariosGet =  (req, res = Response)  => {
 
@@ -41,20 +44,20 @@ const usuariosGet =  (req, res = Response)  => {
             //NO CONFIAR EN LA PERSONA QUE HACE EL FRONTEND
             //aquí solo estamos desestructurando lo que nos interesa. No debemos recibir el campo google para que no pueda ser modificado
       const {nombre,correo,password,rol} = req.body;
-      const usuario = new Usuario({nombre,correo,password,rol});//creando nueva instancia del uduario
+      const usuario = new Usuario({nombre,correo,password,rol});//creando nueva instancia del usuario
       //con lo de arriba sólo se crea la instancia pero no se está guardando:
      
 
       //verificar si el correo existe
 
-      const existeEmail = await Usuario.findOne({correo});
-      if(existeEmail){
+      // const existeEmail = await Usuario.findOne({correo});
+      // if(existeEmail){
 
-        return res.status(400).json({
+      //   return res.status(400).json({
 
-          msg:"El correo ya existe"
-        })
-      }
+      //     msg:"El correo ya existe"
+      //   })
+      // }
 
 
 
