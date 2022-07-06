@@ -1,11 +1,11 @@
-const { Rsponse,request } = require('express');
+const { response,request } = require('express');
 const bcrypt = require('bcryptjs');
 const Usuario = require('../models/usuario');
 // const emailExiste = require('')
 
 
  
-const usuariosGet =  (req, res = Response)  => {
+const usuariosGet =  (req, res = response)  => {
 
     const {q,nombre = "no name",apekey} = req.query;
 
@@ -21,7 +21,7 @@ const usuariosGet =  (req, res = Response)  => {
 
 
 
-  const usuariosPut =  (req, res = Response) => {
+  const usuariosPut =  (req, res = response) => {
 
     const id = req.params.id;
 
@@ -37,7 +37,7 @@ const usuariosGet =  (req, res = Response)  => {
   }
 
 
-  const usuariosPost =  async(req, res = Response) => {
+  const usuariosPost =  async(req, res = response) => {
    
     
 
@@ -48,17 +48,7 @@ const usuariosGet =  (req, res = Response)  => {
       //con lo de arriba sólo se crea la instancia pero no se está guardando:
      
 
-      //verificar si el correo existe
-
-      // const existeEmail = await Usuario.findOne({correo});
-      // if(existeEmail){
-
-      //   return res.status(400).json({
-
-      //     msg:"El correo ya existe"
-      //   })
-      // }
-
+     
 
 
       //encriptar contraseña
@@ -72,22 +62,24 @@ const usuariosGet =  (req, res = Response)  => {
      //guardar en base de datos
       await usuario.save();
 
-
-
-
-      res.status(201).json(
-        {
-        ok:true,
-        msg:"POST API - controlador",
+      res.json({
         usuario
-        
-        }
+      });
 
-    );
+
+      // res.status(201).json(
+      //   {
+      //   ok:true,
+      //   msg:"POST API - controlador",
+      //   usuario
+        
+      //   }
+
+    
 }
 
 
-const usuariosDelete =  (req, res = Response) => {
+const usuariosDelete =  (req, res = response) => {
     res.json(
         {
         ok:true,
@@ -98,7 +90,7 @@ const usuariosDelete =  (req, res = Response) => {
     );
   } 
   
-const usuariosPatch  =  (req, res = Response) => {
+const usuariosPatch  =  (req, res = response) => {
     res.json(
         {
         ok:true,

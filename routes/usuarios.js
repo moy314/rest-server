@@ -25,12 +25,12 @@ router.get('/', usuariosGet)
 
   router.post('/',[// agregando validaciones de correo.
   check('nombre','el nombre no puede ser una cadena vacía').not().isEmpty(),//aqui se hace la validacion. estas cosas son middlewares
-  check('correo','el correo no es válido').isEmail(),
   check('password','el password debe terner al menos 6 caracteres').isLength({min:6}),
   // check('rol',' no es un rol válido').isIn(['ADMIN_ROLE','USER_ROLE']),
-  check('rol').custom( esRolValido ),//verificacion personalizada. se agrega la cadena vacia por si el rol no se envia en el req, la cadena vacía choque con la validacion
-                      //(rol) => esRolValido(rol)
+  check('correo','el correo no es válido').isEmail(),
   check('correo').custom(emailExiste),                      
+  check('rol').custom( esRolValido ),//verificacion personalizada. se agrega la cadena vacia por si el rol no se envia en el req, la cadena vacía choque con la validacion
+  //(rol) => esRolValido(rol)
   validarCampos
 ],usuariosPost)
 
