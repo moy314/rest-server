@@ -13,14 +13,18 @@ const esRolValido   = async(rol = '')=>{
 
 
 //VALIDACION DE CORREO
-const emailExiste = async(email = '') =>{
+const emailExiste = async( email = '' ) => {
 
-    const existeEmail = await Usuario.findOne({email:email});
-    if(existeEmail){
-        throw new Error (`El correo ${email} ya está registrado`);
-     
-      }
-    }
+  // Verificar si el correo existe
+  const existeEmail = await Usuario.findOne({ correo:email });
+  if ( existeEmail ) {
+      throw new Error(`El correo: ${ email }, ya está registrado`);
+  }
+}
+
+
+
+
 
     
 
