@@ -1,19 +1,30 @@
 const { response,request } = require('express');
-const bcrypt = require('bcryptjs');
-const Usuario = require('../models/usuario');
+const bcrypt               = require('bcryptjs');
+const Usuario              = require('../models/usuario');
 // const emailExiste = require('')
 
 
  
-const usuariosGet =  (req, res = response)  => {
+const usuariosGet =  async(req = request, res = response)  => {
+    const {limite = 5,desde = 0 } = req.query;
+    // const query = {estado:false}
+    // const {q,nombre = "no name",apekey} = req.query;
+    // const usuarios = await Usuario.find(query)
+    // .skip( Number(desde) )
+    // .limit( Number(limite) );
 
-    const {q,nombre = "no name",apekey} = req.query;
-
+    const [total,usuarios] = await Promise.all([
+      Usuario.countDocuments(),
+      Usuario.find()
+     .skip( Number(desde) )
+     .limit( Number(limite) )
+    ]) ;
     res.json(
         {
-        ok:true,
-        msg:"GET API - controlador",
-        q,nombre,apekey
+          total,
+          usuarios
+        
+
         }
 
     );
