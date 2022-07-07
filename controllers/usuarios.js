@@ -69,8 +69,8 @@ const usuariosGet =  async(req = request, res = response)  => {
 
             //NO CONFIAR EN LA PERSONA QUE HACE EL FRONTEND
             //aquí solo estamos desestructurando lo que nos interesa. No debemos recibir el campo google para que no pueda ser modificado
-      const {nombre,correo,password,rol} = req.body;
-      const usuario = new Usuario({nombre,correo,password,rol});//creando nueva instancia del usuario
+      const {nombre,correo,password,rol,estado} = req.body;
+      const usuario = new Usuario({nombre,correo,password,rol,estado});//creando nueva instancia del usuario
       //con lo de arriba sólo se crea la instancia pero no se está guardando:
      
 
@@ -105,11 +105,19 @@ const usuariosGet =  async(req = request, res = response)  => {
 }
 
 
-const usuariosDelete =  (req, res = response) => {
+const usuariosDelete =  async(req, res = response) => {
+    const { id }  = req.params;
+
+    //borrar fisicamente
+    // const usuario = await Usuario.findByIdAndDelete(id); 
+
+    //actualizar estado 
+    const usuario = await Usuario.findByIdAndUpdate(id,{estado:false})
+
+  
     res.json(
         {
-        ok:true,
-        msg:"DELETE API - controlador"
+          usuario
         
         }
 

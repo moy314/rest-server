@@ -42,7 +42,13 @@ router.get('/', usuariosGet)
 ],usuariosPost)
 
 
-  router.delete('/',usuariosDelete )
+  router.delete('/:id',[
+    check('id',"El id no es válido,perrín").isMongoId(),
+    check('id').custom(existeUsuario),
+    validarCampos
+
+
+  ],usuariosDelete )
 
   router.patch('/',usuariosPatch )
   

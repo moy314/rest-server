@@ -25,11 +25,11 @@ const usuarioSchema = Schema({
     },
     estado:{
         type:Boolean,
-        required:false
+        required:true
     },
     google:{
         type:Boolean,
-        default:false
+        default:true
     }
 
 
